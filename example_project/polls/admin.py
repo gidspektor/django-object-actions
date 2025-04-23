@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import F
 from django.http import HttpResponseRedirect
 
@@ -66,7 +66,7 @@ class PollAdmin(DjangoObjectActions, admin.ModelAdmin):
     date_hierarchy = 'pub_date'
 
     def delete_all_choices(self, request, obj):
-        from django.shortcuts import render_to_response
+        from django.shortcuts import render
         from django.template import RequestContext
 
         if request.method == 'POST':
@@ -74,7 +74,7 @@ class PollAdmin(DjangoObjectActions, admin.ModelAdmin):
             return
 
         self.message_user(request, 'All choices deleted')
-        return render_to_response('clear_choices.html',
+        return render('clear_choices.html',
             dict(object=obj), context_instance=RequestContext(request))
     delete_all_choices.label = "Delete All Choices"
 

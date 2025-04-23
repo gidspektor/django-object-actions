@@ -9,7 +9,7 @@ class Poll(models.Model):
     question = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
     def was_published_recently(self):
@@ -20,11 +20,11 @@ class Poll(models.Model):
 
 
 class Choice(models.Model):
-    poll = models.ForeignKey(Poll)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.choice_text
 
 
@@ -32,5 +32,5 @@ class Comment(models.Model):
     uuid = UUIDField(primary_key=True)
     comment = models.TextField(null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.comment or ''
